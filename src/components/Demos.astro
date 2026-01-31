@@ -1,0 +1,84 @@
+---
+const demos = [
+  {
+    title: "Locución Comercial",
+    video: "/VIDEOS/🎙️ Locución Comercial _ Demo.mp4",
+  },
+  {
+    title: "Doblaje – Películas",
+    video: "/VIDEOS/🎥 Doblaje – Películas _ Demo.mp4",
+  },
+  {
+    title: "Doblaje en vivo (sync + actuación)",
+    video: "/VIDEOS/🎧 Doblaje en vivo (sync + actuación).mp4",
+  },
+  {
+    title: "Animación – Doblaje",
+    video: "/VIDEOS/🎬 Animación – Doblaje _ Demo.mp4",
+  },
+];
+---
+<section class="demos" id="demos">
+  <h2 class="section-title">Demos</h2>
+  <p class="section-subtitle">Conocé el rango y versatilidad de mi voz</p>
+  <div class="demos-grid">
+    {demos.map((demo) => (
+      <div class="demo-card">
+        <video controls preload="metadata" poster="">
+          <source src={demo.video} type="video/mp4" />
+        </video>
+        <h3>{demo.title}</h3>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .demos {
+    padding: 6rem 2rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin: 0 0 0.5rem;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin: 0 0 3rem;
+  }
+  .demos-grid {
+    display: grid;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  @media (min-width: 600px) {
+    .demos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 900px) {
+    .demos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .demo-card {
+    background: var(--color-bg-elevated);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .demo-card video {
+    width: 100%;
+    display: block;
+    background: #000;
+  }
+  .demo-card h3 {
+    padding: 1rem 1.5rem;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+</style>

@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# videos (host externally, e.g. YouTube)
+public/VIDEOS/
+
 # macOS-specific files
 .DS_Store
 

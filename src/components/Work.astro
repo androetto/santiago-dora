@@ -1,0 +1,74 @@
+---
+const highlights = [
+  { role: "Rick Flag", project: "Escuadrón Suicida: Isekai", type: "Anime" },
+  { role: "Isami Aldini / Yuya Tomita / Abel Blondin", project: "Food Wars!", type: "Anime" },
+  { role: "Jiruo", project: "Made in Abyss", type: "Anime" },
+  { role: "Xuan", project: "La leyenda de la serpiente", type: "Película animada" },
+  { role: "Theodore Roosevelt", project: "Elkhorn", type: "Serie TV" },
+  { role: "Sr. B", project: "Parasyte: The Maxim", type: "Anime" },
+  { role: "Detective Avestruz", project: "HobbyKids Adventures", type: "Serie animada" },
+  { role: "Dan Millman", project: "Poder más allá de la vida", type: "Película" },
+  { role: "Isaac Singer", project: "Alucinaciones del pasado", type: "Película" },
+  { role: "Duke", project: "Propiedad privada", type: "Película" },
+];
+---
+<section class="work" id="trabajos">
+  <h2 class="section-title">Trabajos destacados</h2>
+  <p class="section-subtitle">Una selección de mi filmografía</p>
+  <div class="work-grid">
+    {highlights.map((item) => (
+      <div class="work-card">
+        <span class="work-type">{item.type}</span>
+        <h3>{item.role}</h3>
+        <p>{item.project}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .work {
+    padding: 6rem 2rem;
+    background: var(--color-bg-elevated);
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin: 0 0 0.5rem;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin: 0 0 3rem;
+  }
+  .work-grid {
+    display: grid;
+    gap: 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .work-card {
+    padding: 1.5rem;
+    background: var(--color-bg);
+    border-radius: 8px;
+    border-left: 3px solid var(--color-accent);
+  }
+  .work-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+  }
+  .work-card h3 {
+    margin: 0.5rem 0 0.25rem;
+    font-size: 1.1rem;
+  }
+  .work-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+</style>
