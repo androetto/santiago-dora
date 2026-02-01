@@ -5,26 +5,83 @@ import ScrollHeader from '../components/ScrollHeader.astro';
 interface Props {
   title?: string;
   description?: string;
+  /** URL path para og:image (ej. /fondo1.jpg). Debe ser absoluta en meta. */
+  image?: string;
+  /** Si true, añade noindex (páginas internas o borrador). */
+  noIndex?: boolean;
 }
 
-const { 
+const {
   title = "Santiago Dora | Actor de Doblaje - Locutor",
-  description = "Actor de doblaje argentino de Córdoba. Anime, películas, series, videojuegos. Rick Flag, Food Wars, Made in Abyss y más."
+  description = "Actor de doblaje argentino de Córdoba. Anime, películas, series, videojuegos. Rick Flag, Food Wars, Made in Abyss y más.",
+  image = "/fondo1.jpg",
+  noIndex = false,
 } = Astro.props;
+
+const site = Astro.site?.href ?? "https://santiagodora.com";
+const canonical = new URL(Astro.url.pathname, site).href;
+const imageUrl = image.startsWith("http") ? image : new URL(image, site).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Santiago Dora",
+  jobTitle: "Actor de doblaje y locutor",
+  description: description,
+  url: canonical,
+  image: imageUrl,
+  sameAs: [
+    "https://instagram.com/santi.dora",
+    "https://www.linkedin.com/in/santiago-dora-415044234/",
+    "https://doblaje.fandom.com/es/wiki/Santiago_Dora",
+  ],
+  knowsAbout: ["Doblaje", "Locución", "Anime", "Películas", "Series"],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Córdoba",
+    addressCountry: "AR",
+  },
+};
 ---
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
+    <meta name="author" content="Santiago Dora" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="Santiago Dora" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
