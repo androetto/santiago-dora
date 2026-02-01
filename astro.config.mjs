@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://androetto.github.io',
-  base: '/santiago-dora/',
+  site: 'https://santiagodora.com',
+  base: '/',
 });
