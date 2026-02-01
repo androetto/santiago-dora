@@ -1,4 +1,10 @@
 ---
+const audios = [
+  { label: "Español Neutro", file: "espanol-neutro.mp3" },
+  { label: "Animación", file: "animacion.mp3" },
+  { label: "Español Argentina", file: "espanol-argentina.mp3" },
+  { label: "Películas y series", file: "peliculas-y-series.mp3" },
+];
 ---
 <header class="hero">
   <div class="hero-bg"></div>
@@ -8,6 +14,22 @@
     <p class="hero-subtitle">Actor de doblaje · Locución · Córdoba, Argentina</p>
     <a href="#demos" class="hero-cta">Ver demos</a>
   </div>
+  <div class="hero-audios">
+    {audios.map((audio) => (
+      <div class="hero-audio-item">
+        <div class="hero-audio-row">
+          <audio controls preload="metadata" class="hero-audio">
+            <source
+              src={`${import.meta.env.BASE_URL}audios/${audio.file}`}
+              type="audio/mpeg"
+            />
+          </audio>
+          <a href={`${import.meta.env.BASE_URL}audios/${audio.file}`} download class="hero-audio-download" title="Descargar">↓</a>
+        </div>
+        <span class="hero-audio-label">{audio.label}</span>
+      </div>
+    ))}
+  </div>
 </header>
 
 <style>
@@ -16,8 +38,9 @@
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     text-align: left;
+    gap: 2rem;
   }
   .hero-bg {
     position: absolute;
@@ -82,6 +105,62 @@
   .hero-cta:hover {
     background: var(--color-accent-hover);
     transform: translateY(-2px);
+  }
+  .hero-audios {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    padding-right: clamp(2rem, 5vw, 3rem);
+  }
+  .hero-audio-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+  .hero-audio-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .hero-audio {
+    height: 32px;
+    min-width: 180px;
+    opacity: 0.85;
+    transition: opacity 0.3s;
+  }
+  .hero-audio:hover {
+    opacity: 1;
+  }
+  .hero-audio-download {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+  .hero-audio-download:hover {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+  .hero-audio-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    opacity: 0.8;
+  }
+  @media (max-width: 900px) {
+    .hero {
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-audios {
+      padding: 1.5rem 2rem;
+    }
   }
   @keyframes heroFadeUp {
     from {
