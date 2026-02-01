@@ -1,28 +1,35 @@
 ---
 const worksBase = import.meta.env.BASE_URL + "works/";
 const highlights = [
-  { role: "Rick Flag", project: "Escuadrón Suicida: Isekai", type: "Anime", image: "SSI_-_Rick_Flag.webp" },
-  { role: "Isami Aldini / Yuya Tomita / Abel Blondin", project: "Food Wars!", type: "Anime", image: "FWIsamiAldini.webp" },
-  { role: "Jiruo", project: "Made in Abyss", type: "Anime", image: "MiAP1Jiruo.webp" },
-  { role: "Xuan", project: "La leyenda de la serpiente", type: "Película animada", image: "Xuan_serpiente_blanco_foto_.webp" },
-  { role: "Theodore Roosevelt", project: "Elkhorn", type: "Serie TV", image: "MasonBealsT.webp" },
-  { role: "Sr. B", project: "Parasyte: The Maxim", type: "Anime", image: "B-ParasyteM.webp" },
-  { role: "Detective Avestruz", project: "HobbyKids Adventures", type: "Serie animada", image: "DetectiveAvestruz-HobbyKidsAdventures_.webp" },
-  { role: "Dan Millman", project: "Poder más allá de la vida", type: "Película", image: "DanMillman-PodermasAlladelaVida_.webp" },
-  { role: "Isaac Singer", project: "Alucinaciones del pasado", type: "Película", image: "Isaac_Singer_-_ALUCINACIONES_DEL_PASADO.webp" },
+  { role: "Rick Flag", project: "Escuadrón Suicida: Isekai", type: "Anime", image: "rick-flag.png", videoUrl: "https://youtu.be/q8pl7FF3f5Y" },
+  { role: "Isami Aldini", project: "Food Wars!", type: "Anime", image: "isami-aldini.webp", videoUrl: "https://youtu.be/ViLcaS1NvNA" },
+  { role: "Jiruo", project: "Made in Abyss", type: "Anime", image: "jiruo.png", videoUrl: "https://youtu.be/GswLnE5hAd8" },
+  { role: "Xuan", project: "La leyenda de la serpiente", type: "Película animada", image: "xuan.png", videoUrl: "https://youtu.be/lmQlpd6vgDA" },
+  { role: "Theodore Roosevelt", project: "Elkhorn", type: "Serie TV", image: "theodore-roosevelt.png", videoUrl: "https://youtu.be/b3RQOVFs3vM" },
+  { role: "Dark Jokester", project: "Los nuevos vengadores", type: "Anime", image: "dark-jokester.jpg", videoUrl: "https://youtu.be/HmWHlzlsSN4" },
+  { role: "Jesse Williams", project: "Alucinaciones del pasado", type: "Película", image: "jesse-williams.png", videoUrl: "https://youtu.be/4VBJNUrX3Q4" },
+  { role: "Josh Hartnett", project: "Valle de los dioses", type: "Película", image: "josh-hartnett.jpg", videoUrl: "https://youtu.be/LinVDFbV8k0" },
+  { role: "Scott Mechlowicz", project: "Poder más allá de la vida", type: "Película", image: "scott-mechlowicz.png", videoUrl: "https://youtu.be/YoohRxE6qzA" },
+  { role: "Takashi", project: "Detective Conan", type: "Anime", image: "takashi.png", videoUrl: "https://youtu.be/EVaFjdOezcs" },
 ];
+
+function getEmbedUrl(url: string): string {
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+}
 ---
 <section class="work" id="trabajos">
   <h2 class="section-title">Trabajos oficiales</h2>
   <p class="section-subtitle">Una selección de mi filmografía</p>
   <div class="work-grid">
     {highlights.map((item) => (
-      <div class="work-card">
+      <div class="work-card" data-video={item.videoUrl ? getEmbedUrl(item.videoUrl) : undefined} data-role={item.role} data-project={item.project}>
         {item.image ? (
           <img src={`${worksBase}${item.image}`} alt={item.project} class="work-card-image" width="300" height="200" loading="lazy" />
         ) : (
           <div class="work-card-placeholder" aria-hidden="true" />
         )}
+        {item.videoUrl && <span class="work-card-play" aria-hidden="true">▶</span>}
         <div class="work-card-content">
           <span class="work-type">{item.type}</span>
           <h3>{item.role}</h3>
@@ -31,7 +38,61 @@ const highlights = [
       </div>
     ))}
   </div>
+  <div id="work-video-modal" class="work-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="work-modal-title">
+    <div class="work-modal-backdrop"></div>
+    <div class="work-modal-box">
+      <button type="button" class="work-modal-close" aria-label="Cerrar video">×</button>
+      <h2 id="work-modal-title" class="work-modal-title"></h2>
+      <div class="work-modal-video-wrap">
+        <iframe id="work-video-iframe" title="Video del trabajo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
 </section>
+
+<script>
+  function initWorkVideos() {
+    const modal = document.getElementById('work-video-modal');
+    const iframe = document.getElementById('work-video-iframe') as HTMLIFrameElement;
+    const titleEl = document.getElementById('work-modal-title');
+    const closeBtn = modal?.querySelector('.work-modal-close');
+    const backdrop = modal?.querySelector('.work-modal-backdrop');
+
+    if (!modal || !iframe || !titleEl) return;
+
+    const openModal = (embedUrl: string, role: string, project: string) => {
+      iframe.src = embedUrl + '?autoplay=1';
+      titleEl.textContent = `${role} — ${project}`;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      iframe.src = '';
+      modal.setAttribute('aria-hidden', 'true');
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    };
+
+    document.querySelectorAll('.work-card[data-video]').forEach((card) => {
+      card.addEventListener('click', () => {
+        const url = card.getAttribute('data-video');
+        const role = card.getAttribute('data-role') ?? '';
+        const project = card.getAttribute('data-project') ?? '';
+        if (url) openModal(url, role, project);
+      });
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', closeModal);
+
+    modal.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  }
+  initWorkVideos();
+</script>
 
 <style>
   .work {
@@ -65,6 +126,40 @@ const highlights = [
     border-left: 3px solid var(--color-accent);
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .work-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  .work-card[data-video] .work-card-image {
+    transition: opacity 0.2s ease;
+  }
+  .work-card[data-video]:hover .work-card-image {
+    opacity: 0.85;
+  }
+  .work-card-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .work-card[data-video]:hover .work-card-play {
+    opacity: 1;
   }
   .work-card-image {
     width: 100%;
@@ -99,5 +194,79 @@ const highlights = [
     margin: 0;
     font-size: 0.9rem;
     color: var(--color-text-muted);
+  }
+
+  .work-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  .work-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .work-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+  }
+  .work-modal-box {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    background: var(--color-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  }
+  .work-modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+  .work-modal-close:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  .work-modal-title {
+    padding: 1rem 1.5rem 0;
+    margin: 0;
+    font-size: 1.25rem;
+    font-family: inherit;
+  }
+  .work-modal-video-wrap {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+  }
+  .work-modal-video-wrap iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
   }
 </style>
