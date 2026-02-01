@@ -1,5 +1,6 @@
 ---
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import ScrollHeader from '../components/ScrollHeader.astro';
 
 interface Props {
   title?: string;
@@ -53,6 +54,7 @@ const {
     </style>
   </head>
   <body>
+    <ScrollHeader />
     <slot />
     <WhatsAppFloat />
   </body>
