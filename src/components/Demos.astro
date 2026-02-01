@@ -1,20 +1,8 @@
 ---
 const demos = [
   {
-    title: "Locución Comercial",
-    video: "/VIDEOS/🎙️ Locución Comercial _ Demo.mp4",
-  },
-  {
-    title: "Doblaje – Películas",
-    video: "/VIDEOS/🎥 Doblaje – Películas _ Demo.mp4",
-  },
-  {
-    title: "Doblaje en vivo (sync + actuación)",
-    video: "/VIDEOS/🎧 Doblaje en vivo (sync + actuación).mp4",
-  },
-  {
-    title: "Animación – Doblaje",
-    video: "/VIDEOS/🎬 Animación – Doblaje _ Demo.mp4",
+    title: "Demo",
+    youtubeId: "rCqzyNfrFA8",
   },
 ];
 ---
@@ -24,9 +12,15 @@ const demos = [
   <div class="demos-grid">
     {demos.map((demo) => (
       <div class="demo-card">
-        <video controls preload="metadata" poster="">
-          <source src={demo.video} type="video/mp4" />
-        </video>
+        <div class="demo-video-wrapper">
+          <iframe
+            src={`https://www.youtube.com/embed/${demo.youtubeId}?rel=0`}
+            title={demo.title}
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
         <h3>{demo.title}</h3>
       </div>
     ))}
@@ -70,10 +64,18 @@ const demos = [
     border-radius: 8px;
     overflow: hidden;
   }
-  .demo-card video {
+  .demo-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+  }
+  .demo-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    display: block;
-    background: #000;
+    height: 100%;
   }
   .demo-card h3 {
     padding: 1rem 1.5rem;
