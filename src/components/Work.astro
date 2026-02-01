@@ -28,11 +28,15 @@ function getEmbedUrl(url: string): string {
         ) : (
           <div class="work-card-placeholder" aria-hidden="true" />
         )}
-        {item.videoUrl && <span class="work-card-play" aria-hidden="true">▶</span>}
         <div class="work-card-content">
           <span class="work-type">{item.type}</span>
-          <h3>{item.role}</h3>
-          <p>{item.project}</p>
+          <div class="work-card-title-row">
+            <div class="work-card-titles">
+              <h3>{item.role}</h3>
+              <p>{item.project}</p>
+            </div>
+            {item.videoUrl && <span class="work-card-play" aria-hidden="true">▶</span>}
+          </div>
         </div>
       </div>
     ))}
@@ -133,32 +137,39 @@ function getEmbedUrl(url: string): string {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
-  .work-card[data-video] .work-card-image {
-    transition: opacity 0.2s ease;
+  .work-card-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
   }
-  .work-card[data-video]:hover .work-card-image {
-    opacity: 0.85;
+  .work-card-titles {
+    min-width: 0;
+    flex: 1;
+  }
+  .work-card-titles h3 {
+    margin: 0 0 0.25rem 0;
+  }
+  .work-card-titles p {
+    margin: 0;
   }
   .work-card-play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 56px;
-    height: 56px;
-    background: rgba(0, 0, 0, 0.7);
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--color-accent);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 1.5rem;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+    font-size: 0.85rem;
+    transition: background 0.2s ease, transform 0.2s ease;
   }
   .work-card[data-video]:hover .work-card-play {
-    opacity: 1;
+    background: var(--color-accent-hover);
+    transform: scale(1.05);
   }
   .work-card-image {
     width: 100%;
