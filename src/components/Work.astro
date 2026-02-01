@@ -1,26 +1,33 @@
 ---
+const worksBase = import.meta.env.BASE_URL + "works/";
 const highlights = [
-  { role: "Rick Flag", project: "Escuadrón Suicida: Isekai", type: "Anime" },
-  { role: "Isami Aldini / Yuya Tomita / Abel Blondin", project: "Food Wars!", type: "Anime" },
-  { role: "Jiruo", project: "Made in Abyss", type: "Anime" },
-  { role: "Xuan", project: "La leyenda de la serpiente", type: "Película animada" },
-  { role: "Theodore Roosevelt", project: "Elkhorn", type: "Serie TV" },
-  { role: "Sr. B", project: "Parasyte: The Maxim", type: "Anime" },
-  { role: "Detective Avestruz", project: "HobbyKids Adventures", type: "Serie animada" },
-  { role: "Dan Millman", project: "Poder más allá de la vida", type: "Película" },
-  { role: "Isaac Singer", project: "Alucinaciones del pasado", type: "Película" },
-  { role: "Duke", project: "Propiedad privada", type: "Película" },
+  { role: "Rick Flag", project: "Escuadrón Suicida: Isekai", type: "Anime", image: "SSI_-_Rick_Flag.webp" },
+  { role: "Isami Aldini / Yuya Tomita / Abel Blondin", project: "Food Wars!", type: "Anime", image: "FWIsamiAldini.webp" },
+  { role: "Jiruo", project: "Made in Abyss", type: "Anime", image: "MiAP1Jiruo.webp" },
+  { role: "Xuan", project: "La leyenda de la serpiente", type: "Película animada", image: "Xuan_serpiente_blanco_foto_.webp" },
+  { role: "Theodore Roosevelt", project: "Elkhorn", type: "Serie TV", image: "MasonBealsT.webp" },
+  { role: "Sr. B", project: "Parasyte: The Maxim", type: "Anime", image: "B-ParasyteM.webp" },
+  { role: "Detective Avestruz", project: "HobbyKids Adventures", type: "Serie animada", image: "DetectiveAvestruz-HobbyKidsAdventures_.webp" },
+  { role: "Dan Millman", project: "Poder más allá de la vida", type: "Película", image: "DanMillman-PodermasAlladelaVida_.webp" },
+  { role: "Isaac Singer", project: "Alucinaciones del pasado", type: "Película", image: "Isaac_Singer_-_ALUCINACIONES_DEL_PASADO.webp" },
 ];
 ---
 <section class="work" id="trabajos">
-  <h2 class="section-title">Trabajos destacados</h2>
+  <h2 class="section-title">Trabajos oficiales</h2>
   <p class="section-subtitle">Una selección de mi filmografía</p>
   <div class="work-grid">
     {highlights.map((item) => (
       <div class="work-card">
-        <span class="work-type">{item.type}</span>
-        <h3>{item.role}</h3>
-        <p>{item.project}</p>
+        {item.image ? (
+          <img src={`${worksBase}${item.image}`} alt={item.project} class="work-card-image" width="300" height="200" loading="lazy" />
+        ) : (
+          <div class="work-card-placeholder" aria-hidden="true" />
+        )}
+        <div class="work-card-content">
+          <span class="work-type">{item.type}</span>
+          <h3>{item.role}</h3>
+          <p>{item.project}</p>
+        </div>
       </div>
     ))}
   </div>
@@ -46,16 +53,37 @@ const highlights = [
   }
   .work-grid {
     display: grid;
-    gap: 1rem;
-    max-width: 1000px;
+    gap: 1.5rem;
+    max-width: 1100px;
     margin: 0 auto;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   }
   .work-card {
-    padding: 1.5rem;
     background: var(--color-bg);
     border-radius: 8px;
+    overflow: hidden;
     border-left: 3px solid var(--color-accent);
+    display: flex;
+    flex-direction: column;
+  }
+  .work-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+  .work-card-placeholder {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+    flex-shrink: 0;
+  }
+  .work-card-content {
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
   .work-type {
     font-size: 0.75rem;
@@ -63,11 +91,11 @@ const highlights = [
     letter-spacing: 0.15em;
     color: var(--color-accent);
   }
-  .work-card h3 {
+  .work-card-content h3 {
     margin: 0.5rem 0 0.25rem;
     font-size: 1.1rem;
   }
-  .work-card p {
+  .work-card-content p {
     margin: 0;
     font-size: 0.9rem;
     color: var(--color-text-muted);
