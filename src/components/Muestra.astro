@@ -1,0 +1,144 @@
+---
+const espanolNeutro = [
+  { file: "calido-relajado.mp3", label: "Cálido / Relajado" },
+  { file: "energica-institucional.mp3", label: "Enérgica / Institucional" },
+  { file: "inspiradora-motivacional.mp3", label: "Inspiradora / Motivacional" },
+  { file: "podedora-epica.mp3", label: "Poderosa / Épica" },
+];
+
+const espanolArgentina: { file: string; label: string }[] = [
+  // Agregar audios cuando los tengas, ej: { file: "ejemplo.mp3", label: "Ejemplo" },
+];
+
+const baseUrl = import.meta.env.BASE_URL;
+const muestrasPath = `${baseUrl}audios/muestras`;
+---
+<section class="muestra" id="muestra">
+  <h2 class="section-title">Muestra</h2>
+  <p class="section-subtitle">Distintas tonalidades y estilos de voz</p>
+  <div class="muestra-grid">
+    <div class="muestra-col">
+      <h3 class="muestra-col-title">Español Neutro</h3>
+      <div class="muestra-audios">
+        {espanolNeutro.map((audio) => (
+          <div class="muestra-audio-item">
+            <div class="muestra-audio-row">
+              <audio controls preload="metadata" class="muestra-audio">
+                <source src={`${muestrasPath}/espanol-neutro/${audio.file}`} type="audio/mpeg" />
+              </audio>
+              <a href={`${muestrasPath}/espanol-neutro/${audio.file}`} download class="muestra-audio-download" title="Descargar">↓</a>
+            </div>
+            <span class="muestra-audio-label">{audio.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="muestra-col">
+      <h3 class="muestra-col-title">Español Argentina</h3>
+      <div class="muestra-audios">
+        {espanolArgentina.length > 0 ? (
+          espanolArgentina.map((audio) => (
+            <div class="muestra-audio-item">
+              <div class="muestra-audio-row">
+                <audio controls preload="metadata" class="muestra-audio">
+                  <source src={`${muestrasPath}/espanol-argentina/${audio.file}`} type="audio/mpeg" />
+                </audio>
+                <a href={`${muestrasPath}/espanol-argentina/${audio.file}`} download class="muestra-audio-download" title="Descargar">↓</a>
+              </div>
+              <span class="muestra-audio-label">{audio.label}</span>
+            </div>
+          ))
+        ) : (
+          <p class="muestra-empty">Próximamente más muestras</p>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .muestra {
+    padding: 6rem clamp(1rem, 4vw, 2rem);
+    background: var(--color-bg);
+    overflow-x: hidden;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin: 0 0 0.5rem;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin: 0 0 3rem;
+  }
+  .muestra-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) {
+    .muestra-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .muestra-col-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    margin: 0 0 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-accent);
+  }
+  .muestra-audios {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .muestra-audio-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .muestra-audio-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .muestra-audio {
+    height: 36px;
+    flex: 1;
+    min-width: 0;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+  }
+  .muestra-audio:hover {
+    opacity: 1;
+  }
+  .muestra-audio-download {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+  .muestra-audio-download:hover {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+  .muestra-audio-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+  }
+  .muestra-empty {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 0;
+  }
+</style>
