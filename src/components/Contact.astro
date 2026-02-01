@@ -3,7 +3,28 @@
 <footer class="contact" id="contacto">
   <div class="contact-content">
     <h2>Trabajemos juntos</h2>
-    <p>¿Tenés un proyecto que necesite voz? Escribime.</p>
+    <p>¿Tenés un proyecto que necesite voz? Escribime por el formulario o por cualquiera de estos canales.</p>
+    <form class="contact-form" id="contact-form" action="https://formsubmit.co/santiagodora@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Nueva consulta desde santiagodora.com" />
+      <input type="hidden" name="_template" value="box" />
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+      <div class="contact-form-grid">
+        <div class="contact-form-field">
+          <label for="contact-name">Nombre</label>
+          <input type="text" id="contact-name" name="name" required placeholder="Tu nombre" />
+        </div>
+        <div class="contact-form-field">
+          <label for="contact-email">Email</label>
+          <input type="email" id="contact-email" name="email" required placeholder="tu@email.com" />
+        </div>
+      </div>
+      <div class="contact-form-field">
+        <label for="contact-message">Mensaje</label>
+        <textarea id="contact-message" name="message" required placeholder="Contame sobre tu proyecto..." rows="4"></textarea>
+      </div>
+      <button type="submit" class="contact-form-submit">Enviar mensaje</button>
+      <p class="contact-form-feedback" id="contact-feedback" aria-live="polite"></p>
+    </form>
     <div class="contact-links">
       <a href="https://wa.me/5493564659974?text=Hola%20Santiago!%20Vi%20tu%20web%20y%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto%20de%20doblaje%20o%20locuci%C3%B3n." target="_blank" rel="noopener noreferrer" class="contact-link contact-whatsapp">
         WhatsApp
@@ -22,6 +43,47 @@
   </div>
 </footer>
 
+<script>
+  const form = document.getElementById('contact-form');
+  const feedback = document.getElementById('contact-feedback');
+  if (form && feedback) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn?.textContent;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+      }
+      feedback.textContent = '';
+      feedback.removeAttribute('class');
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          feedback.textContent = '¡Mensaje enviado! Te responderé pronto.';
+          feedback.className = 'contact-form-feedback success';
+          form.reset();
+        } else {
+          const data = await res.json();
+          feedback.textContent = data.message || 'Hubo un error. Probá por WhatsApp.';
+          feedback.className = 'contact-form-feedback error';
+        }
+      } catch {
+        feedback.textContent = 'Error de conexión. Probá por WhatsApp.';
+        feedback.className = 'contact-form-feedback error';
+      }
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  }
+</script>
+
 <style>
   .contact {
     padding: 6rem clamp(1rem, 4vw, 2rem);
@@ -38,6 +100,86 @@
   .contact > .contact-content > p {
     color: var(--color-text-muted);
     margin: 0 0 2rem;
+  }
+  .contact-form {
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    text-align: left;
+  }
+  .contact-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 500px) {
+    .contact-form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .contact-form-field {
+    margin-bottom: 1rem;
+  }
+  .contact-form-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--color-text);
+  }
+  .contact-form-field input,
+  .contact-form-field textarea {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    font-family: inherit;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    color: var(--color-text);
+    transition: border-color 0.2s;
+  }
+  .contact-form-field input::placeholder,
+  .contact-form-field textarea::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.6;
+  }
+  .contact-form-field input:focus,
+  .contact-form-field textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+  .contact-form-field textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  .contact-form-submit {
+    padding: 0.75rem 1.5rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s, background 0.2s;
+  }
+  .contact-form-submit:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+  .contact-form-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  .contact-form-feedback {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .contact-form-feedback.success {
+    color: #4ade80;
+  }
+  .contact-form-feedback.error {
+    color: #f87171;
   }
   .contact-links {
     display: flex;
