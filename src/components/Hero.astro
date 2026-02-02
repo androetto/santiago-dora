@@ -12,7 +12,7 @@ const audios = [
   <div class="hero-content">
     <h1 class="hero-title">Santiago Dora</h1>
     <p class="hero-subtitle">Actor de doblaje · Locutor</p>
-    <a href="#reels" class="hero-cta">Ver reels</a>
+    <a href="#reels" class="hero-cta">Reels</a>
   </div>
   <div class="hero-audios">
     {audios.map((audio) => (
@@ -53,6 +53,12 @@ const audios = [
     background-size: cover;
     background-position: center 35%;
     background-attachment: fixed;
+  }
+  /* En móviles fixed no se muestra (iOS Safari, etc.): usar scroll para que se vea la imagen */
+  @media (max-width: 900px), (hover: none) {
+    .hero-bg {
+      background-attachment: scroll;
+    }
   }
   .hero-overlay {
     position: absolute;
