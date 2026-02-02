@@ -5,7 +5,7 @@ import ScrollHeader from '../components/ScrollHeader.astro';
 interface Props {
   title?: string;
   description?: string;
-  /** Imagen de vista previa para todas las redes (WhatsApp, FB, Twitter, LinkedIn, Telegram, etc.). Path ej. /share.png */
+  /** Imagen de vista previa para todas las redes (WhatsApp, FB, Twitter, etc.). Usar share.jpg (ligera) para que WhatsApp la cargue. */
   image?: string;
   /** Si true, añade noindex (páginas internas o borrador). */
   noIndex?: boolean;
@@ -14,7 +14,7 @@ interface Props {
 const {
   title = "Santiago Dora | Actor de Doblaje - Locutor",
   description = "Actor de doblaje argentino de Córdoba. Anime, películas, series, videojuegos. Rick Flag, Food Wars, Made in Abyss y más.",
-  image = "/share.png",
+  image = "/share.jpg",
   noIndex = false,
 } = Astro.props;
 
@@ -62,7 +62,7 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:image" content={imageUrl} />
     <meta property="og:image:secure_url" content={imageUrl} />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:alt" content="Santiago Dora - Actor de doblaje y locutor" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
