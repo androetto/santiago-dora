@@ -176,16 +176,19 @@ const audios = [
     }
     .hero {
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: stretch;
       padding: 0 1rem;
     }
     .hero-content {
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 0;
       padding-left: 1rem;
+      padding-top: clamp(2rem, 8vh, 4rem);
       max-width: 100%;
+      margin-bottom: 0;
     }
     .hero-audios {
-      padding: 1.5rem 1rem;
+      padding: 1.5rem 1rem clamp(1.5rem, 6vh, 2rem);
       width: 100%;
       max-width: calc(100vw - 2rem);
     }
