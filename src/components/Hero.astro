@@ -1,9 +1,9 @@
 ---
 const audios = [
-  { label: "Español Neutro", file: "espanol-neutro.mp3" },
-  { label: "Animación", file: "animacion.mp3" },
-  { label: "Español Argentina", file: "espanol-argentina.mp3" },
-  { label: "Películas y series", file: "peliculas-y-series.mp3" },
+  { label: "Español Neutro", file: "espanol-neutro.wav" },
+  { label: "Animación", file: "animacion.wav" },
+  { label: "Español Argentina", file: "espanol-argentina.wav" },
+  { label: "Películas y series", file: "peliculas-y-series.wav" },
 ];
 ---
 <header class="hero">
@@ -21,7 +21,7 @@ const audios = [
           <audio controls preload="metadata" class="hero-audio">
             <source
               src={`${import.meta.env.BASE_URL}audios/${audio.file}`}
-              type="audio/mpeg"
+              type="audio/wav"
             />
           </audio>
           <a href={`${import.meta.env.BASE_URL}audios/${audio.file}`} download class="hero-audio-download" title="Descargar">↓</a>

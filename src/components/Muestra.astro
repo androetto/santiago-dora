@@ -1,17 +1,21 @@
 ---
 const espanolNeutro = [
-  { file: "calido-relajado.mp3", label: "Cálido / Relajado" },
-  { file: "energica-institucional.mp3", label: "Enérgica / Institucional" },
-  { file: "inspiradora-motivacional.mp3", label: "Inspiradora / Motivacional" },
-  { file: "podedora-epica.mp3", label: "Poderosa / Épica" },
+  { file: "calido-relajado.wav", label: "Cálido / Relajado" },
+  { file: "energica-institucional.wav", label: "Enérgica / Institucional" },
+  { file: "inspirador-motivacional.wav", label: "Inspirador / Motivacional" },
+  { file: "poderoso-epico.wav", label: "Poderoso / Épico" },
 ];
 
-const espanolArgentina: { file: string; label: string }[] = [
-  // Agregar audios cuando los tengas, ej: { file: "ejemplo.mp3", label: "Ejemplo" },
+const espanolArgentina = [
+  { file: "calido-relajado.wav", label: "Cálido / Relajado" },
+  { file: "energico-institucional.wav", label: "Enérgico / Institucional" },
+  { file: "inspirador-motivacional.wav", label: "Inspirador / Motivacional" },
+  { file: "poderoso-epico.wav", label: "Poderoso / Épico" },
 ];
 
 const baseUrl = import.meta.env.BASE_URL;
-const muestrasPath = `${baseUrl}audios/muestras`;
+const pathNeutro = `${baseUrl}audios/muestra-neutro`;
+const pathArgentina = `${baseUrl}audios/muestra-argentina`;
 ---
 <section class="muestra" id="muestra">
   <h2 class="section-title">Muestras</h2>
@@ -24,9 +28,9 @@ const muestrasPath = `${baseUrl}audios/muestras`;
           <div class="muestra-audio-item">
             <div class="muestra-audio-row">
               <audio controls preload="metadata" class="muestra-audio">
-                <source src={`${muestrasPath}/espanol-neutro/${audio.file}`} type="audio/mpeg" />
+                <source src={`${pathNeutro}/${audio.file}`} type="audio/wav" />
               </audio>
-              <a href={`${muestrasPath}/espanol-neutro/${audio.file}`} download class="muestra-audio-download" title="Descargar">↓</a>
+              <a href={`${pathNeutro}/${audio.file}`} download class="muestra-audio-download" title="Descargar">↓</a>
             </div>
             <span class="muestra-audio-label">{audio.label}</span>
           </div>
@@ -36,21 +40,17 @@ const muestrasPath = `${baseUrl}audios/muestras`;
     <div class="muestra-col">
       <h3 class="muestra-col-title">Español Argentina</h3>
       <div class="muestra-audios">
-        {espanolArgentina.length > 0 ? (
-          espanolArgentina.map((audio) => (
+        {espanolArgentina.map((audio) => (
             <div class="muestra-audio-item">
               <div class="muestra-audio-row">
                 <audio controls preload="metadata" class="muestra-audio">
-                  <source src={`${muestrasPath}/espanol-argentina/${audio.file}`} type="audio/mpeg" />
+                  <source src={`${pathArgentina}/${audio.file}`} type="audio/wav" />
                 </audio>
-                <a href={`${muestrasPath}/espanol-argentina/${audio.file}`} download class="muestra-audio-download" title="Descargar">↓</a>
+                <a href={`${pathArgentina}/${audio.file}`} download class="muestra-audio-download" title="Descargar">↓</a>
               </div>
               <span class="muestra-audio-label">{audio.label}</span>
             </div>
-          ))
-        ) : (
-          <p class="muestra-empty">Próximamente más muestras</p>
-        )}
+          ))}
       </div>
     </div>
   </div>
