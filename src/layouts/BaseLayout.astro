@@ -19,6 +19,7 @@ const {
 } = Astro.props;
 
 const site = Astro.site?.href ?? "https://santiagodora.com";
+const gaId = "G-EEV81FZXJ9";
 const baseUrl = site.replace(/\/$/, "");
 const canonical = new URL(Astro.url.pathname, site).href;
 const imageUrl = image.startsWith("http") ? image : `${baseUrl}${image.startsWith("/") ? image : "/" + image}`;
@@ -83,6 +84,15 @@ const jsonLd = {
 
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Google Analytics (GA4) -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+    <script define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', gaId, { send_page_view: true });
+    </script>
 
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
