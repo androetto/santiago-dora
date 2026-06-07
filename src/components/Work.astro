@@ -1,27 +1,25 @@
 ---
+import type { Translations } from "../i18n";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const { work } = t;
+
 const worksBase = import.meta.env.BASE_URL + "works/";
-const highlights = [
-  { role: "Rick Flag", project: "Escuadrón Suicida: Isekai", type: "Anime", image: "rick-flag.png", videoUrl: "https://youtu.be/q8pl7FF3f5Y" },
-  { role: "Isami Aldini", project: "Food Wars!", type: "Anime", image: "isami-aldini.webp", videoUrl: "https://youtu.be/ViLcaS1NvNA" },
-  { role: "Xuan", project: "La leyenda de la serpiente", type: "Película animada", image: "xuan.png", videoUrl: "https://youtu.be/lmQlpd6vgDA" },
-  { role: "Theodore Roosevelt", project: "Elkhorn", type: "Serie TV", image: "theodore-roosevelt.png", videoUrl: "https://youtu.be/b3RQOVFs3vM" },
-  { role: "Dark Jokester", project: "Los nuevos vengadores", type: "Anime", image: "dark-jokester.jpg", videoUrl: "https://youtu.be/HmWHlzlsSN4" },
-  { role: "Jesse Williams", project: "Alucinaciones del pasado", type: "Película", image: "jesse-williams.png", videoUrl: "https://youtu.be/4VBJNUrX3Q4" },
-  { role: "Josh Hartnett", project: "Valle de los dioses", type: "Película", image: "josh-hartnett.jpg", videoUrl: "https://youtu.be/LinVDFbV8k0" },
-  { role: "Scott Mechlowicz", project: "Poder más allá de la vida", type: "Película", image: "scott-mechlowicz.png", videoUrl: "https://youtu.be/YoohRxE6qzA" },
-  { role: "Takashi", project: "Detective Conan", type: "Anime", image: "takashi.png", videoUrl: "https://youtu.be/EVaFjdOezcs" },
-];
 
 function getEmbedUrl(url: string): string {
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
   return match ? `https://www.youtube.com/embed/${match[1]}` : url;
 }
 ---
-<section class="work" id="trabajos">
-  <h2 class="section-title">Trabajos oficiales</h2>
-  <p class="section-subtitle">Una selección de mi filmografía</p>
+<section class="work" id={work.id}>
+  <h2 class="section-title">{work.title}</h2>
+  <p class="section-subtitle">{work.subtitle}</p>
   <div class="work-grid">
-    {highlights.map((item) => (
+    {work.items.map((item) => (
       <div class="work-card" data-video={item.videoUrl ? getEmbedUrl(item.videoUrl) : undefined} data-role={item.role} data-project={item.project}>
         {item.image ? (
           <img src={`${worksBase}${item.image}`} alt={item.project} class="work-card-image" width="300" height="200" loading="lazy" />
@@ -44,10 +42,10 @@ function getEmbedUrl(url: string): string {
   <div id="work-video-modal" class="work-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="work-modal-title">
     <div class="work-modal-backdrop"></div>
     <div class="work-modal-box">
-      <button type="button" class="work-modal-close" aria-label="Cerrar video">×</button>
+      <button type="button" class="work-modal-close" aria-label={work.closeVideo}>×</button>
       <h2 id="work-modal-title" class="work-modal-title"></h2>
       <div class="work-modal-video-wrap">
-        <iframe id="work-video-iframe" title="Video del trabajo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="work-video-iframe" title={work.videoTitle} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>

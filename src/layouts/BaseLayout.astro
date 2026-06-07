@@ -1,8 +1,12 @@
 ---
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import ScrollHeader from '../components/ScrollHeader.astro';
+import { getLangPath, getOgLocale, getTranslations, type Lang } from '../i18n';
 
 interface Props {
+  lang?: Lang;
+  /** Override canonical path (e.g. "/" for /es duplicate). */
+  canonicalPath?: string;
   title?: string;
   description?: string;
   /** Imagen de vista previa para todas las redes (WhatsApp, FB, Twitter, etc.). Usar share.jpg (ligera) para que WhatsApp la cargue. */
@@ -12,24 +16,32 @@ interface Props {
 }
 
 const {
-  title = "Santiago Dora | Actor de Doblaje - Locutor",
-  description = "Actor de doblaje argentino de Córdoba. Anime, películas, series, videojuegos. Rick Flag, Food Wars, Made in Abyss y más.",
+  lang = "es",
+  canonicalPath,
+  title,
+  description,
   image = "/share.jpg",
   noIndex = false,
 } = Astro.props;
 
+const t = getTranslations(lang);
+const metaTitle = title ?? t.meta.title;
+const metaDescription = description ?? t.meta.description;
+
 const site = Astro.site?.href ?? "https://santiagodora.com";
 const gaId = "G-EEV81FZXJ9";
 const baseUrl = site.replace(/\/$/, "");
-const canonical = new URL(Astro.url.pathname, site).href;
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, site).href;
 const imageUrl = image.startsWith("http") ? image : `${baseUrl}${image.startsWith("/") ? image : "/" + image}`;
+const ogLocale = getOgLocale(lang);
+const alternateOgLocale = lang === "es" ? "en_US" : "es_AR";
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Santiago Dora",
-  jobTitle: "Actor de doblaje y locutor",
-  description: description,
+  jobTitle: t.meta.jobTitle,
+  description: metaDescription,
   url: canonical,
   image: imageUrl,
   sameAs: [
@@ -37,7 +49,7 @@ const jsonLd = {
     "https://www.linkedin.com/in/santiago-dora-415044234/",
     "https://doblaje.fandom.com/es/wiki/Santiago_Dora",
   ],
-  knowsAbout: ["Doblaje", "Locución", "Anime", "Películas", "Series"],
+  knowsAbout: t.meta.knowsAbout,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Córdoba",
@@ -46,34 +58,38 @@ const jsonLd = {
 };
 ---
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{metaTitle}</title>
+    <meta name="description" content={metaDescription} />
     <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
     <meta name="author" content="Santiago Dora" />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={`${baseUrl}${getLangPath("es")}`} />
+    <link rel="alternate" hreflang="en" href={`${baseUrl}${getLangPath("en")}`} />
+    <link rel="alternate" hreflang="x-default" href={`${baseUrl}/`} />
 
     <!-- Vista previa al compartir: misma imagen para todas las redes (WhatsApp, Facebook, Twitter, LinkedIn, Telegram, etc.) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={metaTitle} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:image" content={imageUrl} />
     <meta property="og:image:secure_url" content={imageUrl} />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:alt" content="Santiago Dora - Actor de doblaje y locutor" />
+    <meta property="og:image:alt" content={t.meta.ogImageAlt} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="es_AR" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={alternateOgLocale} />
     <meta property="og:site_name" content="Santiago Dora" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={metaTitle} />
+    <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={imageUrl} />
-    <meta name="twitter:image:alt" content="Santiago Dora - Actor de doblaje y locutor" />
+    <meta name="twitter:image:alt" content={t.meta.ogImageAlt} />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
@@ -150,12 +166,12 @@ const jsonLd = {
     </style>
   </head>
   <body>
-    <ScrollHeader />
+    <ScrollHeader lang={lang} t={t} />
     <slot />
     <footer class="site-credit">
-      Built with <span class="site-credit-heart" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span> by <a href="mailto:androettofranco@gmail.com?subject=Consulta%20desde%20santiagodora.com" target="_blank" rel="noopener noreferrer">Franco Androetto</a>
+      Built with <span class="site-credit-heart" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span> by <a href={`mailto:androettofranco@gmail.com?subject=${t.footer.creditSubject}`} target="_blank" rel="noopener noreferrer">Franco Androetto</a>
     </footer>
-    <WhatsAppFloat />
+    <WhatsAppFloat t={t} />
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const audios = document.querySelectorAll('audio');

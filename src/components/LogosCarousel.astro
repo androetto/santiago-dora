@@ -1,4 +1,12 @@
 ---
+import type { Translations } from "../i18n";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
 const brands = [
   { name: "NETFLIX", file: "netflix.png" },
   { name: "HBO", file: "hbo.png" },
@@ -13,8 +21,8 @@ const brands = [
   { name: "Wekeep", file: "wekeep.png" },
 ];
 ---
-<section class="logos-section" id="empresas">
-  <h2 class="logos-title">Confían en mi voz</h2>
+<section class="logos-section" id={t.logos.id}>
+  <h2 class="logos-title">{t.logos.title}</h2>
   <div class="logos-carousel">
     <div class="logos-track">
       {[...brands, ...brands].map((brand) => (

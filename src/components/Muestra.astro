@@ -1,36 +1,31 @@
 ---
-const espanolNeutro = [
-  { file: "calido-relajado.wav", label: "Cálido / Relajado" },
-  { file: "energica-institucional.wav", label: "Enérgica / Institucional" },
-  { file: "inspirador-motivacional.wav", label: "Inspirador / Motivacional" },
-  { file: "poderoso-epico.wav", label: "Poderoso / Épico" },
-];
+import type { Translations } from "../i18n";
 
-const espanolArgentina = [
-  { file: "calido-relajado.wav", label: "Cálido / Relajado" },
-  { file: "energico-institucional.wav", label: "Enérgico / Institucional" },
-  { file: "inspirador-motivacional.wav", label: "Inspirador / Motivacional" },
-  { file: "poderoso-epico.wav", label: "Poderoso / Épico" },
-];
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const { muestra } = t;
 
 const baseUrl = import.meta.env.BASE_URL;
 const pathNeutro = `${baseUrl}audios/muestra-neutro`;
 const pathArgentina = `${baseUrl}audios/muestra-argentina`;
 ---
-<section class="muestra" id="muestra">
-  <h2 class="section-title">Muestras</h2>
-  <p class="section-subtitle">Distintas tonalidades y estilos de voz</p>
+<section class="muestra" id={muestra.id}>
+  <h2 class="section-title">{muestra.title}</h2>
+  <p class="section-subtitle">{muestra.subtitle}</p>
   <div class="muestra-grid">
     <div class="muestra-col">
-      <h3 class="muestra-col-title">Español Neutro</h3>
+      <h3 class="muestra-col-title">{muestra.neutroTitle}</h3>
       <div class="muestra-audios">
-        {espanolNeutro.map((audio) => (
+        {muestra.neutroAudios.map((audio) => (
           <div class="muestra-audio-item">
             <div class="muestra-audio-row">
               <audio controls preload="metadata" class="muestra-audio">
                 <source src={`${pathNeutro}/${audio.file}`} type="audio/wav" />
               </audio>
-              <a href={`${pathNeutro}/${audio.file}`} download class="muestra-audio-download" title="Descargar">
+              <a href={`${pathNeutro}/${audio.file}`} download class="muestra-audio-download" title={muestra.download}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               </a>
             </div>
@@ -40,15 +35,15 @@ const pathArgentina = `${baseUrl}audios/muestra-argentina`;
       </div>
     </div>
     <div class="muestra-col">
-      <h3 class="muestra-col-title">Español Argentina</h3>
+      <h3 class="muestra-col-title">{muestra.argentinaTitle}</h3>
       <div class="muestra-audios">
-        {espanolArgentina.map((audio) => (
+        {muestra.argentinaAudios.map((audio) => (
             <div class="muestra-audio-item">
               <div class="muestra-audio-row">
                 <audio controls preload="metadata" class="muestra-audio">
                   <source src={`${pathArgentina}/${audio.file}`} type="audio/wav" />
                 </audio>
-                <a href={`${pathArgentina}/${audio.file}`} download class="muestra-audio-download" title="Descargar">
+                <a href={`${pathArgentina}/${audio.file}`} download class="muestra-audio-download" title={muestra.download}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               </a>
               </div>
@@ -147,11 +142,5 @@ const pathArgentina = `${baseUrl}audios/muestra-argentina`;
     font-size: 0.8rem;
     letter-spacing: 0.1em;
     color: var(--color-text-muted);
-  }
-  .muestra-empty {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-    opacity: 0.8;
-    margin: 0;
   }
 </style>

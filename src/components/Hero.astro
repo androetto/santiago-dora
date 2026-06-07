@@ -1,26 +1,33 @@
 ---
-const audios = [
-  { label: "Español Neutro", file: "espanol-neutro.wav" },
-  { label: "Animación", file: "animacion.wav" },
-  { label: "Español Argentina", file: "espanol-argentina.wav" },
-  { label: "Películas y series", file: "peliculas-y-series.wav" },
-];
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import type { Lang, Translations } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+const { hero, heroVideo } = t;
 ---
 <header class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
-  <a href="mailto:santiagodora94@gmail.com" class="hero-email">
-    <svg class="hero-email-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-      <polyline points="22,6 12,13 2,6"/>
-    </svg>
-    santiagodora94@gmail.com
-  </a>
+  <div class="hero-top-bar">
+    <LanguageSwitcher lang={lang} />
+    <a href="mailto:santiagodora94@gmail.com" class="hero-email">
+      <svg class="hero-email-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      santiagodora94@gmail.com
+    </a>
+  </div>
   <div class="hero-content">
     <h1 class="hero-title">Santiago Dora</h1>
-    <p class="hero-subtitle">Actor de doblaje · Locutor</p>
+    <p class="hero-subtitle">{hero.subtitle}</p>
   </div>
-  <a href="#video-principal" class="hero-scroll-down" aria-label="Bajar al contenido">
+  <a href={`#${heroVideo.id}`} class="hero-scroll-down" aria-label={hero.scrollDown}>
     <span class="hero-scroll-down-circle">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M12 5v14M19 12l-7 7-7-7"/>
@@ -28,7 +35,7 @@ const audios = [
     </span>
   </a>
   <div class="hero-audios">
-    {audios.map((audio) => (
+    {hero.audios.map((audio) => (
       <div class="hero-audio-item">
         <div class="hero-audio-row">
           <audio controls preload="metadata" class="hero-audio">
@@ -37,7 +44,7 @@ const audios = [
               type="audio/wav"
             />
           </audio>
-          <a href={`${import.meta.env.BASE_URL}audios/${audio.file}`} download class="hero-audio-download" title="Descargar">
+          <a href={`${import.meta.env.BASE_URL}audios/${audio.file}`} download class="hero-audio-download" title={hero.download}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           </a>
         </div>
@@ -60,11 +67,16 @@ const audios = [
     max-width: 100vw;
     overflow-x: hidden;
   }
-  .hero-email {
+  .hero-top-bar {
     position: absolute;
     top: 1.25rem;
     right: clamp(1.25rem, 4vw, 2.5rem);
     z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-email {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -90,7 +102,6 @@ const audios = [
     background-position: center 35%;
     background-attachment: fixed;
   }
-  /* En móviles fixed no se muestra (iOS Safari, etc.): usar scroll para que se vea la imagen */
   @media (max-width: 900px), (hover: none) {
     .hero-bg {
       background-attachment: scroll;

@@ -1,0 +1,187 @@
+import type { Translations } from "./ui";
+
+export const es: Translations = {
+  meta: {
+    title: "Santiago Dora | Actor de Doblaje - Locutor",
+    description:
+      "Actor de doblaje argentino de Córdoba. Anime, películas, series, videojuegos. Rick Flag, Food Wars, Made in Abyss y más.",
+    ogImageAlt: "Santiago Dora - Actor de doblaje y locutor",
+    jobTitle: "Actor de doblaje y locutor",
+    knowsAbout: ["Doblaje", "Locución", "Anime", "Películas", "Series"],
+  },
+  nav: {
+    subtitle: "Actor de doblaje · Locutor",
+  },
+  hero: {
+    subtitle: "Actor de doblaje · Locutor",
+    scrollDown: "Bajar al contenido",
+    download: "Descargar",
+    audios: [
+      { label: "Español Neutro", file: "espanol-neutro.wav" },
+      { label: "Animación", file: "animacion.wav" },
+      { label: "Español Argentina", file: "espanol-argentina.wav" },
+      { label: "Películas y series", file: "peliculas-y-series.wav" },
+    ],
+  },
+  heroVideo: {
+    id: "video-principal",
+    title: "Destacados",
+    videos: [
+      { id: "UJQrKmyFcQA", title: "Demo 1" },
+      { id: "smaT033vdn4", title: "Demo 2" },
+    ],
+  },
+  about: {
+    id: "sobre-mi",
+    title: "Sobre mí",
+    iframeTitle: "Sobre mí – Santiago Dora",
+    paragraphs: [
+      "Voz profesional con más de 7 años de experiencia, para proyectos que necesitan sonar claros, creíbles y bien producidos.",
+      "Trabajo en doblaje, locuciones comerciales e institucionales, animación, audiolibros, con grabación remota desde mi estudio profesional.",
+      "Mi formación en comunicación y publicidad asegura que cada pieza no solo suene bien, sino que diga lo que tiene que decir.",
+    ],
+    closing:
+      "Usar la voz como herramienta de trabajo para conectar ideas, alegra el espíritu.",
+  },
+  logos: {
+    id: "empresas",
+    title: "Confían en mi voz",
+  },
+  demos: {
+    id: "reels",
+    title: "Reels",
+    subtitle: "Conocé el rango y versatilidad de mi voz",
+    items: [
+      { title: "Reel de doblaje 2025", youtubeId: "rCqzyNfrFA8" },
+      { title: "Reel Doblaje 2024", youtubeId: "64p3yIvP7yQ" },
+      { title: "Publicidad Coca Cola", youtubeId: "YKQ_wn0RSvk" },
+      { title: "Publicidad O'Farrell", youtubeId: "t2eFkwbFSLI" },
+      { title: "Animé", youtubeId: "fSgetqhPBNQ" },
+      { title: "Dibujos animados", youtubeId: "ylttUOSidkQ" },
+    ],
+  },
+  muestra: {
+    id: "muestra",
+    title: "Muestras",
+    subtitle: "Distintas tonalidades y estilos de voz",
+    download: "Descargar",
+    neutroTitle: "Español Neutro",
+    argentinaTitle: "Español Argentina",
+    neutroAudios: [
+      { file: "calido-relajado.wav", label: "Cálido / Relajado" },
+      { file: "energica-institucional.wav", label: "Enérgica / Institucional" },
+      { file: "inspirador-motivacional.wav", label: "Inspirador / Motivacional" },
+      { file: "poderoso-epico.wav", label: "Poderoso / Épico" },
+    ],
+    argentinaAudios: [
+      { file: "calido-relajado.wav", label: "Cálido / Relajado" },
+      { file: "energico-institucional.wav", label: "Enérgico / Institucional" },
+      { file: "inspirador-motivacional.wav", label: "Inspirador / Motivacional" },
+      { file: "poderoso-epico.wav", label: "Poderoso / Épico" },
+    ],
+  },
+  work: {
+    id: "trabajos",
+    title: "Trabajos oficiales",
+    subtitle: "Una selección de mi filmografía",
+    closeVideo: "Cerrar video",
+    videoTitle: "Video del trabajo",
+    items: [
+      {
+        role: "Rick Flag",
+        project: "Escuadrón Suicida: Isekai",
+        type: "Anime",
+        image: "rick-flag.png",
+        videoUrl: "https://youtu.be/q8pl7FF3f5Y",
+      },
+      {
+        role: "Isami Aldini",
+        project: "Food Wars!",
+        type: "Anime",
+        image: "isami-aldini.webp",
+        videoUrl: "https://youtu.be/ViLcaS1NvNA",
+      },
+      {
+        role: "Xuan",
+        project: "La leyenda de la serpiente",
+        type: "Película animada",
+        image: "xuan.png",
+        videoUrl: "https://youtu.be/lmQlpd6vgDA",
+      },
+      {
+        role: "Theodore Roosevelt",
+        project: "Elkhorn",
+        type: "Serie TV",
+        image: "theodore-roosevelt.png",
+        videoUrl: "https://youtu.be/b3RQOVFs3vM",
+      },
+      {
+        role: "Dark Jokester",
+        project: "Los nuevos vengadores",
+        type: "Anime",
+        image: "dark-jokester.jpg",
+        videoUrl: "https://youtu.be/HmWHlzlsSN4",
+      },
+      {
+        role: "Jesse Williams",
+        project: "Alucinaciones del pasado",
+        type: "Película",
+        image: "jesse-williams.png",
+        videoUrl: "https://youtu.be/4VBJNUrX3Q4",
+      },
+      {
+        role: "Josh Hartnett",
+        project: "Valle de los dioses",
+        type: "Película",
+        image: "josh-hartnett.jpg",
+        videoUrl: "https://youtu.be/LinVDFbV8k0",
+      },
+      {
+        role: "Scott Mechlowicz",
+        project: "Poder más allá de la vida",
+        type: "Película",
+        image: "scott-mechlowicz.png",
+        videoUrl: "https://youtu.be/YoohRxE6qzA",
+      },
+      {
+        role: "Takashi",
+        project: "Detective Conan",
+        type: "Anime",
+        image: "takashi.png",
+        videoUrl: "https://youtu.be/EVaFjdOezcs",
+      },
+    ],
+  },
+  contact: {
+    id: "contacto",
+    title: "Trabajemos juntos",
+    intro:
+      "¿Tenés un proyecto que necesite voz? Escribime por el formulario o por cualquiera de estos canales.",
+    formSubject: "Nueva consulta desde santiagodora.com",
+    nameLabel: "Nombre",
+    namePlaceholder: "Tu nombre",
+    emailLabel: "Email",
+    emailPlaceholder: "tu@email.com",
+    messageLabel: "Mensaje",
+    messagePlaceholder: "Contame sobre tu proyecto...",
+    submit: "Enviar mensaje",
+    sending: "Enviando...",
+    success: "¡Mensaje enviado! Te responderé pronto.",
+    error: "Hubo un error. Probá por WhatsApp.",
+    connectionError: "Error de conexión. Probá por WhatsApp.",
+    whatsappUrl:
+      "https://wa.me/5493564659974?text=Hola%20Santiago!%20Vi%20tu%20web%20y%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto%20de%20doblaje%20o%20locuci%C3%B3n.",
+    location: "Córdoba, Argentina",
+  },
+  whatsapp: {
+    url: "https://wa.me/5493564659974?text=Hola%20Santiago!%20Vi%20tu%20web%20y%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto%20de%20doblaje%20o%20locuci%C3%B3n.",
+    title: "Contactar por WhatsApp",
+    ariaLabel: "Contactar por WhatsApp",
+  },
+  footer: {
+    creditSubject: "Consulta%20desde%20santiagodora.com",
+  },
+  langSwitcher: {
+    label: "Idioma",
+  },
+};

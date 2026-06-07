@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "./Hero.astro";
+import HeroVideo from "./HeroVideo.astro";
+import About from "./About.astro";
+import LogosCarousel from "./LogosCarousel.astro";
+import Demos from "./Demos.astro";
+import Muestra from "./Muestra.astro";
+import Work from "./Work.astro";
+import Contact from "./Contact.astro";
+import { getTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  /** Canonical path for SEO (e.g. "/" for Spanish, "/en" for English). */
+  canonicalPath?: string;
+}
+
+const { lang, canonicalPath } = Astro.props;
+const t = getTranslations(lang);
+---
+<BaseLayout
+  lang={lang}
+  canonicalPath={canonicalPath}
+  title={t.meta.title}
+  description={t.meta.description}
+  image="/share.jpg"
+>
+  <main style="overflow-x: hidden; max-width: 100%;">
+    <Hero lang={lang} t={t} />
+    <HeroVideo t={t} />
+    <About t={t} />
+    <LogosCarousel t={t} />
+    <Demos t={t} />
+    <Muestra t={t} />
+    <Work t={t} />
+    <Contact t={t} />
+  </main>
+</BaseLayout>

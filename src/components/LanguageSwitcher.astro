@@ -1,0 +1,56 @@
+---
+import { getLangPath, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+<nav class="lang-switcher" aria-label={lang === "es" ? "Idioma" : "Language"}>
+  <a
+    href={getLangPath("es")}
+    class:list={["lang-switcher-link", { active: lang === "es" }]}
+    hreflang="es"
+    lang="es"
+  >
+    ES
+  </a>
+  <span class="lang-switcher-sep" aria-hidden="true">|</span>
+  <a
+    href={getLangPath("en")}
+    class:list={["lang-switcher-link", { active: lang === "en" }]}
+    hreflang="en"
+    lang="en"
+  >
+    EN
+  </a>
+</nav>
+
+<style>
+  .lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+  .lang-switcher-link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 0.2rem 0.35rem;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .lang-switcher-link:hover {
+    color: var(--color-text);
+  }
+  .lang-switcher-link.active {
+    color: var(--color-accent);
+  }
+  .lang-switcher-sep {
+    color: rgba(255, 255, 255, 0.2);
+    user-select: none;
+  }
+</style>

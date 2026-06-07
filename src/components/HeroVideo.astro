@@ -1,13 +1,17 @@
 ---
-const videos = [
-  { id: "UJQrKmyFcQA", title: "Demo 1" },
-  { id: "smaT033vdn4", title: "Demo 2" },
-];
+import type { Translations } from "../i18n";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const { heroVideo } = t;
 ---
-<section class="hero-video" id="video-principal">
-  <h2 class="hero-video-title">Destacados</h2>
+<section class="hero-video" id={heroVideo.id}>
+  <h2 class="hero-video-title">{heroVideo.title}</h2>
   <div class="hero-video-grid">
-    {videos.map((video) => (
+    {heroVideo.videos.map((video) => (
       <div class="hero-video-wrapper">
         <iframe
           src={`https://www.youtube.com/embed/${video.id}?rel=0`}
