@@ -52,12 +52,15 @@ export const es: Translations = {
     title: "Reels",
     subtitle: "Conocé el rango y versatilidad de mi voz",
     items: [
-      { title: "Reel de doblaje 2025", youtubeId: "rCqzyNfrFA8" },
-      { title: "Reel Doblaje 2024", youtubeId: "64p3yIvP7yQ" },
+      { title: "Travel Services", youtubeId: "ho8mDUvnasA" },
       { title: "Publicidad Coca Cola", youtubeId: "YKQ_wn0RSvk" },
+      { title: "Ford Ranger", youtubeId: "D0vrmcE-WSA" },
+      { title: "Reel de doblaje 2025", youtubeId: "rCqzyNfrFA8" },
+      { title: "Medicina anticipativa", youtubeId: "b-Km9xlwDYY" },
+      { title: "Animación", youtubeId: "ylttUOSidkQ" },
       { title: "Publicidad O'Farrell", youtubeId: "t2eFkwbFSLI" },
       { title: "Animé", youtubeId: "fSgetqhPBNQ" },
-      { title: "Dibujos animados", youtubeId: "ylttUOSidkQ" },
+      { title: "Reel Doblaje 2024", youtubeId: "64p3yIvP7yQ" },
     ],
   },
   muestra: {

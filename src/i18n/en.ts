@@ -52,12 +52,15 @@ export const en: Translations = {
     title: "Reels",
     subtitle: "Discover the range and versatility of my voice",
     items: [
-      { title: "Dubbing Reel 2025", youtubeId: "rCqzyNfrFA8" },
-      { title: "Dubbing Reel 2024", youtubeId: "64p3yIvP7yQ" },
+      { title: "Travel Services", youtubeId: "ho8mDUvnasA" },
       { title: "Coca Cola Commercial", youtubeId: "YKQ_wn0RSvk" },
+      { title: "Ford Ranger", youtubeId: "D0vrmcE-WSA" },
+      { title: "Dubbing Reel 2025", youtubeId: "rCqzyNfrFA8" },
+      { title: "Anticipatory Medicine", youtubeId: "b-Km9xlwDYY" },
+      { title: "Animation", youtubeId: "ylttUOSidkQ" },
       { title: "O'Farrell Commercial", youtubeId: "t2eFkwbFSLI" },
       { title: "Anime", youtubeId: "fSgetqhPBNQ" },
-      { title: "Cartoons", youtubeId: "ylttUOSidkQ" },
+      { title: "Dubbing Reel 2024", youtubeId: "64p3yIvP7yQ" },
     ],
   },
   muestra: {
